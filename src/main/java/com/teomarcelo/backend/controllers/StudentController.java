@@ -3,10 +3,13 @@ package com.teomarcelo.backend.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.teomarcelo.backend.exceptions.ResourceNotFoundException;
 import com.teomarcelo.backend.models.Student;
 import com.teomarcelo.backend.repositories.StudentRepository;
 
@@ -37,6 +40,15 @@ public class StudentController {
 	@GetMapping("allstudents")
 	public List<Student> getAllStudents() {
 		return studentRepo.findAll();
+	}
+	
+//	ResponseEntity represents the whole HTTP response: status code, headers, and body.
+//	@PathVariable is a Spring annotation which indicates that a method parameter should be bound to a URI template variable
+	@GetMapping("student/{id}")
+	public ResponseEntity<Student> getStudentById(@PathVariable int id) {
+		Student student = studentRepo.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Student not found."));
+				return ResponseEntity.ok(student);
 	}
 	
 }
