@@ -51,6 +51,15 @@ public class StudentController {
 				return ResponseEntity.ok(student);
 	}
 	
+	@GetMapping("allstudents/{firstname}")
+	public List<Student> getStudentsByFirstname(@PathVariable String firstname) {
+		List<Student> students = studentRepo.findByFirstname(firstname);
+		if(students.isEmpty()) {
+			System.out.println(new ResourceNotFoundException("Student(s) with the name " + firstname + " not found."));
+		}
+		return studentRepo.findByFirstname(firstname);
+	}
+	
 }
 
 

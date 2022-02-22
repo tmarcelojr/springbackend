@@ -17,6 +17,7 @@ import com.teomarcelo.backend.models.Student;
 // Read more about jpa repositories: https://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Integer>{
-//	List<Student> findByFirstname(String firstname);
-
+	
+//	abstract method
+	List<Student> findByFirstname(String firstname);
 } 
