@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.teomarcelo.backend.exceptions.ResourceNotFoundException;
@@ -28,6 +30,7 @@ import com.teomarcelo.backend.repositories.StudentRepository;
 // One of the most common annotation in Spring Web application. It handles our REST controllers in our MVC design pattern. We put this on top of our model controller. We can pass properties in here, but for simplicity and cleaner code we can just pass in a string that represents the beginning part of the URI (endpoints). This means our endpoiunts will have to have this in their URI.
 // Difference between URL and URI: https://danielmiessler.com/study/difference-between-uri-url/
 @RestController
+@CrossOrigin
 @RequestMapping("/api/v1/")
 public class StudentController {
 	
@@ -47,6 +50,7 @@ public class StudentController {
 //		You can pass on some sorting logic inside findAll() 
 		return studentRepo.findAll();
 	}
+	
 	
 //	ResponseEntity represents the whole HTTP response: status code, headers, and body.
 //	@PathVariable is a Spring annotation which indicates that a method parameter should be bound to a URI template variable
@@ -70,8 +74,7 @@ public class StudentController {
 	@PostMapping("addstudent")
 	public Student newStudent(@RequestBody Student student) {
 		return studentRepo.save(student);
-	}
-	
+	}	
 	
 	@PutMapping("student/{id}")
 	public ResponseEntity<Student> updateStudent(@PathVariable int id, @RequestBody Student newStudentInfo) {
