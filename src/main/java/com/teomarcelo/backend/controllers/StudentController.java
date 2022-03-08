@@ -55,10 +55,10 @@ public class StudentController {
 //	ResponseEntity represents the whole HTTP response: status code, headers, and body.
 //	@PathVariable is a Spring annotation which indicates that a method parameter should be bound to a URI template variable
 	@GetMapping("student/{id}")
-	public ResponseEntity<Student> getStudentById(@PathVariable int id) {
+	public ResponseEntity<String> getStudentById(@PathVariable int id) {
 		Student student = studentRepo.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Student not found."));
-				return ResponseEntity.ok(student);
+				return new ResponseEntity<>("student not found!", HttpStatus.OK);
 	}
 	
 	@GetMapping("allstudents/{firstname}")
